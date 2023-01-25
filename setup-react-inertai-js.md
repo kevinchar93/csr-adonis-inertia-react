@@ -20,4 +20,13 @@ npm i @eidellev/inertia-adonisjs
 ❯ Would you like to use SSR? (y/N) · false
 ❯ Which client-side adapter would you like to set up? · @inertiajs/inertia-react
 
-##
+## Register inertia middleware
+Add Inertia middleware to start/kernel.ts:
+<!-- what does kernel.ts in AdonisJS do -->
+
+```javascript
+Server.middleware.register([
+  () => import('@ioc:Adonis/Core/BodyParser'),
+  () => import('@ioc:EidelLev/Inertia/Middleware'),
+]);
+```
