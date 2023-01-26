@@ -21,7 +21,6 @@ npm i @eidellev/inertia-adonisjs
 ```
 node ace configure @eidellev/inertia-adonisjs
 
-
 ❯ Enter the edge file you would like to use as your entrypoint · app
 ❯ Would you like to install the Inertia.js client-side adapter? (Y/n) · true
 ❯ Would you like to use SSR? (y/N) · false
@@ -82,4 +81,80 @@ Install react & supporting libraries:
 npm i react react-dom @types/react @types/react-dom
 ```
 
-##
+## Configure the app entry point
+
+Running the config script for the adapter should have generated a `app.edge` file its: contents should be:
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.ico">
+
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+
+  <title>csr-adonis-inertia-react</title>
+
+</head>
+
+<body>
+  @inertia
+</body>
+
+</html>
+```
+
+Now configure the app entrypoint file `resources/js/app.tsx` to contain the following:
+```javascript
+import { InertiaApp } from '@inertiajs/inertia-react'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import '../css/app.css'
+
+// initial page object with props from server
+const root = document.getElementById('app')
+const page = JSON.parse(root.dataset.page)
+
+// dynamically load required page component from "resources/js/Pages/." dir
+async function resolver(pageName) {
+  const module = await import(`./Pages/${pageName}`)
+  return module.default
+}
+
+function App() {
+  return <InertiaApp initialPage={page} resolveComponent={resolver} initialComponent={''} />
+}
+
+ReactDOM.render(<App />, root)
+
+```
+
+## Create a test component
+
+Create a test component `resources/js/Pages/Test.tsx`
+
+Contents:
+```javascript
+import React from 'react'
+
+const Test = () => <div>hello from inertia</div>
+
+export default Test
+
+```
+
+## Create a test route 
+
+Create a test route `start/routes.ts`
+
+Contents should be:
+```javascript
+import Route from '@ioc:Adonis/Core/Route'
+
+Route.get('/test', async ({ inertia }) => {
+  return inertia.render('Test', { someData: 'hello' })
+}) 
+```
