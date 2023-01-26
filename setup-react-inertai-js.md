@@ -30,3 +30,45 @@ Server.middleware.register([
   () => import('@ioc:EidelLev/Inertia/Middleware'),
 ]);
 ```
+<!-- can you summarise what the Inertia middleware from EidelLev does, can we link to the source and explain? -->
+## Configure Webpack-Encore for React in Typescript 
+
+By default Encore (the asset bundler provided to us by Adonis) is configured for Javascript, but since we want to use the same TS throughout our app, let's configure it for that.
+
+Install ts-loader and @babel/preset-react so encore knows how to handle Typescript files and JSX syntax.
+```bash
+npm install ts-loader @babel/preset-react --save-dev
+```
+<!-- what does the TS loader do & what does preset-react do, can we link to more detailed explainer -->
+
+Enable support for the 'app.js' as an entry point, edit `webpack.config.js` changing the following into:
+```javascript
+Encore.addEntry('app', './resources/js/app.js')
+```
+<!-- what is an entry point & why do we need one for app.js? -->
+
+```javascript
+Encore.addEntry('app', './resources/js/app.tsx')
+Encore.enableTypeScriptLoader()
+Encore.enableReactPreset()
+```
+<!-- what does each of these Encore methods setup, break it down in detail -->
+
+Rename `/resources/js/app.js` to `/resources/js/app.tsx` to match our previous changes.
+
+Configure typescript for our client side code. Create a file called /resources/js/tsconfig.json and paste this minimal config in it:
+```json
+{
+  "include": ["**/*"],
+  "compilerOptions": {
+    "lib": ["DOM"],
+    "jsx": "react",
+    "esModuleInterop": true
+  }
+}
+```
+
+Install react & supporting libraries:
+```bash
+npm i react react-dom @types/react @types/react-dom
+```
