@@ -1,5 +1,11 @@
 # Setup Adonis + Inertia JS react app
 
+Simple guide to setup React as the view layer for AdonisJS using InertiaJS.
+
+Based on:
+- https://dev.to/eidellev/getting-started-with-adonisjs-and-inertia-js-2po0
+- https://github.com/eidellev/inertiajs-adonisjs
+
 ## Generate a new app:
 
 ```
@@ -29,7 +35,7 @@ node ace configure @eidellev/inertia-adonisjs
 
 ## Register inertia middleware
 
-Add Inertia middleware to start/kernel.ts:
+Add Inertia middleware to `start/kernel.ts`:
 <!-- what does kernel.ts in AdonisJS do -->
 
 ```javascript
@@ -41,20 +47,21 @@ Server.middleware.register([
 <!-- can you summarise what the Inertia middleware from EidelLev does, can we link to the source and explain? -->
 ## Configure Webpack-Encore for React in Typescript 
 
-By default Encore (the asset bundler provided to us by Adonis) is configured for Javascript, but since we want to use the same TS throughout our app, let's configure it for that.
+By default Encore (AdonisJS asset bundler) is configured for JS,  we want to use the TS in our app, let's configure support for TS.
 
-Install ts-loader and @babel/preset-react so encore knows how to handle Typescript files and JSX syntax.
+Install `ts-loader` and `@babel/preset-react` so encore knows how to bundle Typescript files and JSX syntax.
 ```bash
 npm install ts-loader @babel/preset-react --save-dev
 ```
 <!-- what does the TS loader do & what does preset-react do, can we link to more detailed explainer -->
 
-Enable support for the 'app.js' as an entry point, edit `webpack.config.js` changing the following into:
+Modify the entry point, edit `webpack.config.js` changing the following:
 ```javascript
 Encore.addEntry('app', './resources/js/app.js')
 ```
 <!-- what is an entry point & why do we need one for app.js? -->
 
+into:
 ```javascript
 Encore.addEntry('app', './resources/js/app.tsx')
 Encore.enableTypeScriptLoader()
@@ -62,9 +69,9 @@ Encore.enableReactPreset()
 ```
 <!-- what does each of these Encore methods setup, break it down in detail -->
 
-Rename `/resources/js/app.js` to `/resources/js/app.tsx` to match our previous changes.
+Rename `/resources/js/app.js` to `/resources/js/app.tsx`.
 
-Configure typescript for our client side code. Create a file called /resources/js/tsconfig.json and paste this minimal config in it:
+Create a file `/resources/js/tsconfig.json` and with contents:
 ```json
 {
   "include": ["**/*"],
@@ -83,7 +90,7 @@ npm i react react-dom @types/react @types/react-dom
 
 ## Configure the app entry point
 
-Running the config script for the adapter should have generated a `app.edge` file its: contents should be:
+Running the config script for the adapter should have generated a `app.edge` file its contents should be:
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -118,7 +125,7 @@ import '../css/app.css'
 const root = document.getElementById('app')
 const page = JSON.parse(root.dataset.page)
 
-// dynamically load required page component from "resources/js/Pages/." dir
+// dynamically load specified page component from "resources/js/Pages/." dir
 async function resolver(pageName) {
   const module = await import(`./Pages/${pageName}`)
   return module.default
@@ -129,32 +136,26 @@ function App() {
 }
 
 ReactDOM.render(<App />, root)
-
 ```
 
 ## Create a test component
 
-Create a test component `resources/js/Pages/Test.tsx`
-
-Contents:
+Create a test component `resources/js/Pages/Test.tsx`, with contents:
 ```javascript
 import React from 'react'
 
-const Test = () => <div>hello from inertia</div>
+const Test = ({exampleProp}) => <div>Hello world, from {exampleProp}!)</div>
 
 export default Test
-
 ```
 
 ## Create a test route 
 
-Create a test route `start/routes.ts`
-
-Contents should be:
+Create a test route `start/routes.ts`, contents:
 ```javascript
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.get('/test', async ({ inertia }) => {
-  return inertia.render('Test', { someData: 'hello' })
+  return inertia.render('Test', { exampleProp: 'inertia' })
 }) 
 ```
