@@ -19,7 +19,13 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import Logger from '@ioc:Adonis/Core/Logger'
 
 Route.get('/', async ({ view }) => {
   return view.render('welcome')
+})
+
+Route.get('/test', async ({ inertia }) => {
+  Logger.debug('hit /test')
+  return inertia.render('Test', { someData: 'hello' })
 })
