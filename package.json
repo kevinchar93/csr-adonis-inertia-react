@@ -69,7 +69,11 @@
     "@eidellev/inertia-adonisjs": "^7.4.0",
     "@inertiajs/inertia": "^0.11.1",
     "@inertiajs/inertia-react": "^0.8.1",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
     "proxy-addr": "^2.0.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.21"
   }
