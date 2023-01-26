@@ -7,7 +7,7 @@ import '../css/app.css'
 const root = document.getElementById('app')
 const page = JSON.parse(root.dataset.page)
 
-// dynamically load required page component from "resources/js/Pages/." dir
+// dynamically load specified page component from "resources/js/Pages/." dir
 async function resolver(pageName) {
   const module = await import(`./Pages/${pageName}`)
   return module.default
