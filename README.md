@@ -90,7 +90,7 @@ npm i react react-dom @types/react @types/react-dom
 
 ## Configure the app entry point
 
-Running the config script for the adapter should have generated a `app.edge` file its contents should be:
+Running the config script for the inertia js adapter _(`node ace configure @eidellev/inertia-adonisjs`)_ should have generated a `app.edge` file its contents should be:
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -148,6 +148,7 @@ const Test = ({exampleProp}) => <div>Hello world, from {exampleProp}!)</div>
 
 export default Test
 ```
+
 
 ## Create a test route 
 
