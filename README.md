@@ -1,4 +1,4 @@
-# Setup Adonis + Inertia JS react app
+# How to Setup React as a view layer for AdonisJS, using InertiaJS
 
 Simple guide to setup React as the view layer for AdonisJS using InertiaJS (https://github.com/eidellev/inertiajs-adonisjs).
 
