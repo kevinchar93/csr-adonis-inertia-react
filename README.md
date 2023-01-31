@@ -18,6 +18,7 @@ Navigate to http://127.0.0.1:3333
 Based on:
 - https://dev.to/eidellev/getting-started-with-adonisjs-and-inertia-js-2po0
 - https://github.com/eidellev/inertiajs-adonisjs
+- https://adocasts.com/lessons/adding-inertiajs-to-a-new-adonisjs-project
 
 ## 1. Generate a new app:
 
