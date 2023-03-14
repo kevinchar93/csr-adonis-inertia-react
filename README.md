@@ -134,7 +134,7 @@ import '../css/app.css'
 
 // initial page object with props from server
 const root = document.getElementById('app')
-const page = JSON.parse(root.dataset.page)
+const page = JSON.parse(root?.dataset.page as string)
 
 // dynamically load specified page component from "resources/js/Pages/." dir
 async function resolver(pageName) {
