@@ -98,7 +98,7 @@ Create a file `./resources/js/tsconfig.json`, with contents:
 
 ## 5. Configure the app entry point
 
-Running the config script earlier for the Inertia JS Provdier _(`node ace configure @eidellev/inertia-adonisjs`)_ should have generated an `app.edge` file its contents should be:
+Running the config script earlier for the Inertia JS Provdier _(`node ace configure @eidellev/inertia-adonisjs`)_ should have generated an file `resources\views\app.edge` its contents should be:
 ```html
 <!DOCTYPE html>
 <html lang="en">
