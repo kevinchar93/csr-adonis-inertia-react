@@ -95,6 +95,13 @@ Create a file `./resources/js/tsconfig.json`, with contents:
 }
 ```
 
+Also in the file `tsconfig.json` at the root of your project add the following to the "compilerOptions" section
+```
+"lib": ["DOM"],
+"jsx": "react",
+```
+
+This is to prevent warnings about using `jsx` syntax in your `.tsx` files down `resources\js` & so you can use the document object directly without errors.
 
 ## 5. Configure the app entry point
 
