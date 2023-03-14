@@ -95,10 +95,6 @@ Create a file `./resources/js/tsconfig.json`, with contents:
 }
 ```
 
-Install react & supporting libraries:
-```bash
-npm i react react-dom @types/react @types/react-dom
-```
 
 ## 5. Configure the app entry point
 
